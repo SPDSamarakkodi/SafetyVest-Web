@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>
+Smart Safety Vest Dashboard
+</title>
+
+<!-- Bootstrap -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+href="css/dashboard.css"
+rel="stylesheet">
+
+<!-- Leaflet Map CSS -->
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"
+/>
+
+</head>
+
+<body>
+
+<!-- ALERT POPUP -->
+<div id="alertPopup" class="alert-popup">
+
+    <h4>
+        🚨 Emergency Alert
+    </h4>
+
+    <p id="alertMessage"></p>
+
+    <button
+        onclick="openAlerts()"
+        class="btn btn-danger">
+
+        View Alerts
+
+    </button>
+
+</div>
+
+<!-- TOP NAVBAR -->
+<nav class="navbar navbar-dark bg-primary px-4">
+
+    <span class="navbar-brand">
+
+        🦺 Smart Safety Vest
+
+    </span>
+
+<div>
+
+    <span class="text-white me-3">
+
+        Admin
+
+    </span>
+
+
+    <a
+        href="pages/alerts.html"
+        class="btn btn-danger btn-sm me-2">
+
+        🚨 Alerts
+
+        <span
+            id="alertCount"
+            class="badge bg-light text-danger">
+
+            0
+
+        </span>
+
+    </a>
+
+
+    <button
+    class="btn btn-light btn-sm"
+    onclick="logout()">
+
+    Logout
+
+    </button>
+
+
+</div>
+
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-2 sidebar">
+
+            <h5>
+
+                Menu
+
+            </h5>
+
+            <a href="#">
+
+                Dashboard
+
+            </a>
+
+            <a href="pages/history.html">
+
+                History
+
+            </a>
+
+            <a href="pages/alerts.html">
+
+                Alerts
+
+            </a>
+
+            <a href="pages/users.html">
+
+                Users
+
+            </a>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-10 p-4">
+
+            <h3>
+
+                Worker Monitoring
+
+            </h3>
+
+            <!-- SENSOR CARDS -->
+            <div class="row mt-4">
+
+                <div class="col-md-3">
+
+                    <div class="sensor-card">
+
+                        <h5>
+
+                            🌡 Temperature
+
+                        </h5>
+
+                        <h2 id="temperature">
+
+                            --
+
+                        </h2>
+
+                        <span>
+
+                            °C
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="sensor-card">
+
+                        <h5>
+
+                            💨 Gas Level
+
+                        </h5>
+
+                        <h2 id="gas">
+
+                            --
+
+                        </h2>
+
+                        <span>
+
+                            PPM
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="sensor-card">
+
+                        <h5>
+
+                            ❤️ Heart Rate
+
+                        </h5>
+
+                        <h2 id="heartRate">
+
+                            --
+
+                        </h2>
+
+                        <span>
+
+                            BPM
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="sensor-card">
+
+                        <h5>
+
+                            ⚠ Fall Status
+
+                        </h5>
+
+                        <h2 id="fall">
+
+                            --
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="sensor-card">
+
+                        <h5>
+
+                            💧 Humidity
+
+                        </h5>
+
+                        <h2 id="humidity">
+
+                            --
+
+                        </h2>
+
+                        <span>
+
+                            %
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- MAP AREA -->
+            <div class="card mt-4">
+
+                <div class="card-header">
+
+                    📍 Live Worker Location
+
+                </div>
+
+                <div id="map"></div>
+
+            </div>
+
+            <!-- CHART AREA -->
+            <div class="card mt-4">
+
+                <div class="card-header">
+
+                    📊 Sensor Analytics
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <canvas id="temperatureChart"></canvas>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <canvas id="gasChart"></canvas>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <canvas id="heartChart"></canvas>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <canvas id="humidityChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="js/firebase.js"></script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="js/map.js"></script>
+
+<script src="js/charts.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
