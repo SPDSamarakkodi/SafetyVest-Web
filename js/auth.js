@@ -265,23 +265,32 @@ Sign In
 function logout()
 {
 
-firebase.auth()
-.signOut()
+    firebase.auth()
+    .signOut()
 
-.then(()=>{
+    .then(()=>{
 
+        localStorage.removeItem(
+            "adminEmail"
+        );
 
-localStorage.removeItem(
-"adminEmail"
-);
+        console.log(
+            "Logout successful"
+        );
 
+        window.location.href =
+        "./index.html";
 
-window.location.href =
-"index.html";
+    })
 
+    .catch((error)=>{
 
-});
+        console.log(
+            "Logout error:",
+            error
+        );
 
+    });
 
 }
 
@@ -289,37 +298,37 @@ window.location.href =
 // AUTH PAGE PROTECTION
 // ===============================
 
-function checkAuth(isPage = false)
+function checkAuth()
 {
 
-    firebase.auth()
-    .onAuthStateChanged((user)=>{
+firebase.auth()
+.onAuthStateChanged((user)=>{
 
 
-        if(!user)
+    if(!user)
+    {
+
+
+        if(window.location.pathname.includes("/pages/"))
         {
 
+            window.location.href =
+            "../index.html";
 
-            if(isPage)
-            {
+        }
+        else
+        {
 
-                window.location.href =
-                "../index.html";
-
-            }
-            else
-            {
-
-                window.location.href =
-                "index.html";
-
-            }
-
+            window.location.href =
+            "index.html";
 
         }
 
 
-    });
+    }
+
+
+});
 
 
 }

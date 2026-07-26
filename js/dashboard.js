@@ -189,39 +189,7 @@ let currentAlertID = null;
 
 
 
-// ===============================
-// LOGOUT
-// ===============================
 
-function logout()
-{
-
-    firebase.auth()
-    .signOut()
-
-    .then(()=>{
-
-        console.log(
-            "Logout successful"
-        );
-
-
-        window.location.href =
-        "index.html";
-
-
-    })
-
-    .catch((error)=>{
-
-        console.log(
-            "Logout error:",
-            error
-        );
-
-    });
-
-}
 
 
 let lastSensorUpdate = null;
