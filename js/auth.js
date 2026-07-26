@@ -1,95 +1,286 @@
 function login(){
 
 
-    const email =
-    document.getElementById("email").value.trim();
+const email =
+document.getElementById("email").value.trim();
 
 
-    const password =
-    document.getElementById("password").value;
-
-
-
-    if(email === "" || password === "")
-    {
-
-        document.getElementById("error").innerHTML =
-        "Please enter email and password";
-
-        return;
-
-    }
+const password =
+document.getElementById("password").value;
 
 
 
-    firebase.auth()
-    .signInWithEmailAndPassword(
-        email,
-        password
-    )
+// =========================
+// EMPTY VALIDATION
+// =========================
 
-    .then((userCredential)=>{
-
-
-        console.log(
-            "Login successful:",
-            userCredential.user.email
-        );
-
-
-        window.location.href =
-        "dashboard.html";
-
-
-    })
-
-
-    .catch((error)=>{
-
-
-        console.log(error);
-
-
-        let message = "Login failed";
-
-
-if(error.code === "auth/invalid-credential")
+if(email === "" || password === "")
 {
-    message =
-    "Invalid email or password";
+
+showError(
+"Please enter email and password"
+);
+
+return;
+
 }
 
 
-if(error.code === "auth/user-not-found")
+
+// =========================
+// EMAIL FORMAT VALIDATION
+// =========================
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+if(!emailPattern.test(email))
 {
-    message =
-    "User account not found";
+
+showError(
+"Please enter a valid email address"
+);
+
+return;
+
 }
 
 
-document.getElementById("error")
-.innerHTML =
+
+// =========================
+// PASSWORD VALIDATION
+// =========================
+
+
+if(password.length < 6)
+{
+
+showError(
+"Password must contain at least 6 characters"
+);
+
+return;
+
+}
+
+
+
+// =========================
+// START LOADING
+// =========================
+
+setLoading(true);
+
+
+
+// =========================
+// FIREBASE LOGIN
+// =========================
+
+
+firebase.auth()
+
+.signInWithEmailAndPassword(
+email,
+password
+)
+
+
+.then((userCredential)=>{
+
+
+    
+console.log(
+"Login Successful",
+userCredential.user.email
+);
+
+
+// save session
+
+localStorage.setItem(
+"adminEmail",
+userCredential.user.email
+);
+
+
+
+window.location.href =
+"dashboard.html";
+
+
+
+})
+
+
+
+.catch((error)=>{
+
+
+setLoading(false);
+
+
+
+let message =
+"Login failed";
+
+
+switch(error.code)
+{
+
+
+case "auth/user-not-found":
+
+message =
+"Account not found";
+
+break;
+
+
+
+case "auth/wrong-password":
+
+message =
+"Incorrect password";
+
+break;
+
+
+
+case "auth/invalid-email":
+
+message =
+"Invalid email format";
+
+break;
+
+
+
+case "auth/invalid-credential":
+
+message =
+"Invalid email or password";
+
+break;
+
+
+default:
+
+message =
+"Something went wrong";
+
+}
+
+
+
+showError(message);
+
+
+
+});
+
+}
+
+
+
+
+
+
+// =========================
+// ERROR DISPLAY
+// =========================
+
+function showError(message)
+{
+
+const errorBox =
+document.getElementById("error");
+
+
+const errorText =
+document.getElementById("errorText");
+
+
+
+errorText.innerHTML =
 message;
 
 
-    });
+
+errorBox.classList.add("show");
 
 
 }
 
-function logout(){
 
 
-    firebase.auth()
-    .signOut()
-    .then(()=>{
 
 
-        window.location.href =
-        "index.html";
+// =========================
+// LOGIN BUTTON LOADING
+// =========================
 
 
-    });
+function setLoading(status)
+{
+
+
+const button =
+document.querySelector(".btn-login");
+
+
+
+if(status)
+{
+
+button.disabled=true;
+
+
+button.innerHTML =
+`
+<i class="bi bi-arrow-repeat"></i>
+Checking...
+`;
+
+}
+
+else
+{
+
+button.disabled=false;
+
+
+button.innerHTML =
+`
+<i class="bi bi-box-arrow-in-right"></i>
+Sign In
+`;
+
+}
+
+
+}
+
+
+function logout()
+{
+
+firebase.auth()
+.signOut()
+
+.then(()=>{
+
+
+localStorage.removeItem(
+"adminEmail"
+);
+
+
+window.location.href =
+"index.html";
+
+
+});
 
 
 }
@@ -129,6 +320,41 @@ function checkAuth(isPage = false)
 
 
     });
+
+
+}
+
+function togglePassword()
+{
+
+const password =
+document.getElementById("password");
+
+
+const icon =
+document.getElementById("eyeIcon");
+
+
+
+if(password.type==="password")
+{
+
+password.type="text";
+
+icon.className=
+"bi bi-eye-slash";
+
+}
+
+else
+{
+
+password.type="password";
+
+icon.className=
+"bi bi-eye";
+
+}
 
 
 }
