@@ -1,11 +1,174 @@
-// ===============================
-// LOGIN CHECK
-// ===============================
+// =================================
+// SENSOR STATUS CHECK
+// =================================
 
-if(localStorage.getItem("logged") != "true")
+function updateSensorStatus(data)
 {
-    window.location.href="index.html";
+
+
+    // Temperature
+
+    const temperatureStatus =
+    document.getElementById(
+        "temperatureStatus"
+    );
+
+
+    if(data.temperature > 40)
+    {
+
+        temperatureStatus.innerHTML =
+        "🔴 High Temperature";
+
+        temperatureStatus.className =
+        "small text-danger";
+
+    }
+    else
+    {
+
+        temperatureStatus.innerHTML =
+        "🟢 Normal";
+
+        temperatureStatus.className =
+        "small text-success";
+
+    }
+
+
+
+    // Humidity
+
+    const humidityStatus =
+    document.getElementById(
+        "humidityStatus"
+    );
+
+
+    if(
+        data.humidity < 30 ||
+        data.humidity > 80
+    )
+    {
+
+        humidityStatus.innerHTML =
+        "🟡 Unusual";
+
+        humidityStatus.className =
+        "small text-warning";
+
+    }
+    else
+    {
+
+        humidityStatus.innerHTML =
+        "🟢 Normal";
+
+        humidityStatus.className =
+        "small text-success";
+
+    }
+
+
+
+    // Gas
+
+    const gasStatus =
+    document.getElementById(
+        "gasStatus"
+    );
+
+
+    if(data.gas >= 400)
+    {
+
+        gasStatus.innerHTML =
+        "🔴 Dangerous Gas";
+
+        gasStatus.className =
+        "small text-danger";
+
+    }
+    else
+    {
+
+        gasStatus.innerHTML =
+        "🟢 Safe";
+
+        gasStatus.className =
+        "small text-success";
+
+    }
+
+
+
+    // Heart Rate
+
+    const heartStatus =
+    document.getElementById(
+        "heartStatus"
+    );
+
+
+    if(
+        data.heartRate < 60 ||
+        data.heartRate > 120
+    )
+    {
+
+        heartStatus.innerHTML =
+        "🟡 Check Worker";
+
+        heartStatus.className =
+        "small text-warning";
+
+    }
+    else
+    {
+
+        heartStatus.innerHTML =
+        "🟢 Normal";
+
+        heartStatus.className =
+        "small text-success";
+
+    }
+
+
+
+    // Fall
+
+    const fallStatus =
+    document.getElementById(
+        "fallStatus"
+    );
+
+
+    if(data.fall === true)
+    {
+
+        fallStatus.innerHTML =
+        "🚨 FALL DETECTED";
+
+        fallStatus.className =
+        "small text-danger";
+
+    }
+    else
+    {
+
+        fallStatus.innerHTML =
+        "🟢 Safe";
+
+        fallStatus.className =
+        "small text-success";
+
+    }
+
+
 }
+
+
 
 
 
@@ -33,15 +196,299 @@ let currentAlertID = null;
 function logout()
 {
 
-    localStorage.removeItem("logged");
+    firebase.auth()
+    .signOut()
 
-    window.location.href="index.html";
+    .then(()=>{
+
+        console.log(
+            "Logout successful"
+        );
+
+
+        window.location.href =
+        "index.html";
+
+
+    })
+
+    .catch((error)=>{
+
+        console.log(
+            "Logout error:",
+            error
+        );
+
+    });
 
 }
 
 
+let lastSensorUpdate = null;
 
 
+function updateConnectionStatus()
+{
+
+    const status =
+    document.getElementById(
+        "workerStatus"
+    );
+
+
+    const last =
+    document.getElementById(
+        "lastUpdated"
+    );
+
+
+    if(!lastSensorUpdate)
+    {
+
+        return;
+
+    }
+
+
+    const now =
+    new Date();
+
+
+    const diff =
+    (now - lastSensorUpdate)
+    /1000;
+
+
+
+    if(diff < 30)
+    {
+
+        status.innerHTML =
+        "🟢 ONLINE";
+
+
+        status.className =
+        "text-success";
+
+    }
+    else
+    {
+
+        status.innerHTML =
+        "🔴 OFFLINE";
+
+
+        status.className =
+        "text-danger";
+
+    }
+
+
+}
+
+
+// =================================
+// FIREBASE CONNECTION STATUS
+// =================================
+
+const firebaseStatus =
+document.getElementById(
+    "firebaseStatus"
+);
+
+
+database.ref(".info/connected")
+.on(
+"value",
+(snapshot)=>{
+
+
+    if(snapshot.val() === true)
+    {
+
+        firebaseStatus.innerHTML =
+        "🟢 Firebase Connected";
+
+
+        firebaseStatus.className =
+        "text-success";
+
+    }
+    else
+    {
+
+        firebaseStatus.innerHTML =
+        "🔴 Firebase Disconnected";
+
+
+        firebaseStatus.className =
+        "text-danger";
+
+    }
+
+
+});
+
+
+
+
+// =================================
+// WORKER SAFETY SUMMARY
+// =================================
+
+function updateSafetyStatus(data)
+{
+
+    const safetyStatus =
+    document.getElementById(
+        "safetyStatus"
+    );
+
+
+    const safetyMessage =
+    document.getElementById(
+        "safetyMessage"
+    );
+
+
+    let status = "SAFE";
+
+    let messages = [];
+
+
+
+    // Fall detection
+
+    if(data.fall === true)
+    {
+
+        status = "DANGER";
+
+        messages.push(
+            "Fall detected"
+        );
+
+    }
+
+
+
+    // Gas level
+
+    if(data.gas >= 400)
+    {
+
+        if(status !== "DANGER")
+        {
+            status = "WARNING";
+        }
+
+
+        messages.push(
+            "High gas level"
+        );
+
+    }
+
+
+
+    // Temperature
+
+    if(data.temperature > 40)
+    {
+
+        if(status !== "DANGER")
+        {
+            status = "WARNING";
+        }
+
+
+        messages.push(
+            "High temperature"
+        );
+
+    }
+
+
+
+    // Heart rate
+
+    if(
+        data.heartRate < 60 ||
+        data.heartRate > 120
+    )
+    {
+
+        if(status !== "DANGER")
+        {
+            status = "WARNING";
+        }
+
+
+        messages.push(
+            "Abnormal heart rate"
+        );
+
+    }
+
+
+
+    // Update UI
+
+
+    if(status === "SAFE")
+    {
+
+        safetyStatus.innerHTML =
+        "🟢 SAFE";
+
+
+        safetyStatus.className =
+        "text-success";
+
+
+        safetyMessage.innerHTML =
+        "Worker monitoring normal";
+
+    }
+
+
+
+    else if(status === "WARNING")
+    {
+
+        safetyStatus.innerHTML =
+        "🟡 WARNING";
+
+
+        safetyStatus.className =
+        "text-warning";
+
+
+        safetyMessage.innerHTML =
+        messages.join(", ");
+
+    }
+
+
+
+    else
+    {
+
+        safetyStatus.innerHTML =
+        "🚨 DANGER";
+
+
+        safetyStatus.className =
+        "text-danger";
+
+
+        safetyMessage.innerHTML =
+        messages.join(", ");
+
+    }
+
+
+}  
 
 // ===============================
 // SENSOR DATA
@@ -63,9 +510,32 @@ sensorRef.on(
 
 
     if(!data)
-    {
-        return;
-    }
+{
+    return;
+}
+
+document.querySelectorAll(".sensor-card")
+.forEach(card=>{
+    card.classList.remove("loading");
+});
+
+    updateSafetyStatus(data);
+
+    lastSensorUpdate =
+new Date();
+
+ 
+
+updateSensorStatus(data);
+
+
+document.getElementById(
+"lastUpdated"
+).innerHTML =
+lastSensorUpdate.toLocaleString();
+
+
+updateConnectionStatus();
 
 
 
@@ -503,3 +973,23 @@ console.log(
 
 
 });
+
+
+setInterval(
+updateConnectionStatus,
+5000
+);
+
+
+// =================================
+// MOBILE SIDEBAR
+// =================================
+function toggleSidebar(){
+
+    const sidebar = document.getElementById("sidebar");
+
+    sidebar.classList.toggle("show");
+
+}
+
+

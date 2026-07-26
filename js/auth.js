@@ -1,44 +1,134 @@
 function login(){
 
 
-let email =
-document.getElementById("email").value;
+    const email =
+    document.getElementById("email").value.trim();
 
 
-let password =
-document.getElementById("password").value;
-
-
-
-if(
-email==="admin@gmail.com"
-&&
-password==="123"
-){
-
-
-localStorage.setItem(
-"logged",
-"true"
-);
+    const password =
+    document.getElementById("password").value;
 
 
 
-window.location.href=
-"dashboard.html";
+    if(email === "" || password === "")
+    {
+
+        document.getElementById("error").innerHTML =
+        "Please enter email and password";
+
+        return;
+
+    }
 
 
+
+    firebase.auth()
+    .signInWithEmailAndPassword(
+        email,
+        password
+    )
+
+    .then((userCredential)=>{
+
+
+        console.log(
+            "Login successful:",
+            userCredential.user.email
+        );
+
+
+        window.location.href =
+        "dashboard.html";
+
+
+    })
+
+
+    .catch((error)=>{
+
+
+        console.log(error);
+
+
+        let message = "Login failed";
+
+
+if(error.code === "auth/invalid-credential")
+{
+    message =
+    "Invalid email or password";
 }
 
-else{
+
+if(error.code === "auth/user-not-found")
+{
+    message =
+    "User account not found";
+}
 
 
 document.getElementById("error")
-.innerHTML=
-"Wrong username or password";
+.innerHTML =
+message;
+
+
+    });
 
 
 }
+
+function logout(){
+
+
+    firebase.auth()
+    .signOut()
+    .then(()=>{
+
+
+        window.location.href =
+        "index.html";
+
+
+    });
+
+
+}
+
+// ===============================
+// AUTH PAGE PROTECTION
+// ===============================
+
+function checkAuth(isPage = false)
+{
+
+    firebase.auth()
+    .onAuthStateChanged((user)=>{
+
+
+        if(!user)
+        {
+
+
+            if(isPage)
+            {
+
+                window.location.href =
+                "../index.html";
+
+            }
+            else
+            {
+
+                window.location.href =
+                "index.html";
+
+            }
+
+
+        }
+
+
+    });
 
 
 }
