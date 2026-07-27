@@ -184,131 +184,81 @@ SafetyVest-Web/
 │   └── users.html            # User management page
 ├── assets/
 │   └── alarm.mp3             # Alert sound
+├── screenshots/              # Screenshot images
 └── .gitignore
 ```
 
 ## 📸 Screenshots
 
-### Login Page
-Add screenshot here showing:
-- Login form
-- Email and password input fields
-- Sign In button
-- Modern gradient background
+### 1. Login Page
+Admin authentication interface with email and password fields.
 
-```
-![Login Page](./screenshots/01-login.png)
-```
+![Login Page](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/01-login.png)
 
-### Dashboard - Real-Time Monitoring
-Add screenshot here showing:
-- Top navigation bar
-- Sidebar navigation
-- Sensor cards (Temperature, Humidity, Gas, Heart Rate)
-- Safety banner with status
-- Map component
+---
 
-```
-![Dashboard Overview](./screenshots/02-dashboard-overview.png)
-```
+### 2. Dashboard - Real-Time Monitoring
+Main dashboard displaying real-time sensor data and worker status.
 
-### Sensor Cards Detail
-Add screenshot here showing:
-- Individual sensor card layout
-- Live sensor values
-- Status indicators (Green/Yellow/Red)
-- Live data updates
+![Dashboard Overview](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/02-dashboard-overview.png)
 
-```
-![Sensor Cards](./screenshots/03-sensor-cards.png)
-```
+---
 
-### Live GPS Map
-Add screenshot here showing:
-- Interactive Leaflet map
-- Worker location marker
-- Real-time position updates
-- Map controls
+### 3. Sensor Cards Detail
+Live sensor data cards showing temperature, humidity, gas levels, and heart rate.
 
-```
-![GPS Tracking Map](./screenshots/04-gps-map.png)
-```
+![Sensor Cards](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/03-sensor-cards.png)
 
-### Alert Notification
-Add screenshot here showing:
-- Alert popup appearance
-- Alert details (Type, Message, Gas level, Heart rate)
-- View Location button
-- Acknowledge button
-- Audio notification indicator
+---
 
-```
-![Alert Notification](./screenshots/05-alert-popup.png)
-```
+### 4. Live GPS Map
+Interactive map showing real-time worker location tracking.
 
-### Alerts Management Page
-Add screenshot here showing:
-- Alert history list
-- Alert severity indicators
-- Critical alert count
-- Warning count
-- Acknowledge button
-- Location view option
+![GPS Tracking Map](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/04-gps-map.png)
 
-```
-![Alerts Management](./screenshots/06-alerts-page.png)
-```
+---
 
-### Sensor History Page
-Add screenshot here showing:
-- Historical data table
-- Search functionality
-- Column headers (Time, Temperature, Humidity, Gas, Heart Rate, Fall, Location)
-- Generate Safety Report button
-- Responsive table layout
+### 5. Alert Notification Popup
+Real-time alert notification with critical information and actions.
 
-```
-![Sensor History](./screenshots/07-history-page.png)
-```
+![Alert Notification](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/05-alert-popup.png)
 
-### User Management Page
-Add screenshot here showing:
-- User list table
-- User details (ID, Name, Email, Role)
-- Role badges (Worker, Supervisor, Admin)
-- Emergency contact information
-- Edit/Delete action buttons
-- Add User button
+---
 
-```
-![User Management](./screenshots/08-users-page.png)
-```
+### 6. Alerts Management Page
+Complete alert history with filtering and acknowledgment controls.
 
-### PDF Safety Report
-Add screenshot here showing:
-- Report header with logo
-- Worker information section
-- Sensor statistics table
-- Sensor history data
-- GPS information
-- Alert summary
-- Overall safety status
+![Alerts Management](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/06-alerts-page.png)
 
-```
-![Safety Report PDF](./screenshots/09-safety-report.png)
-```
+---
 
-### Mobile Responsive View
-Add screenshot here showing:
-- Mobile layout
-- Collapsed sidebar
-- Touch-friendly navigation
-- Responsive sensor cards
-- Mobile alert notifications
+### 7. Sensor History Page
+Historical sensor data table with search and report generation.
 
-```
-![Mobile View](./screenshots/10-mobile-responsive.png)
-```
+![Sensor History](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/07-history-page.png)
+
+---
+
+### 8. User Management Page
+Worker profile management with role assignment and emergency contacts.
+
+![User Management](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/08-users-page.png)
+
+---
+
+### 9. PDF Safety Report
+Generated PDF report with comprehensive worker safety analysis.
+
+![Safety Report PDF](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/09-safety-report.png)
+
+---
+
+### 10. Mobile Responsive View
+Responsive design adapting to mobile and tablet devices.
+
+![Mobile View](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/10-mobile-responsive.png)
+
+---
 
 ## 🛠 Technologies Used
 
@@ -442,6 +392,22 @@ let alertAudio = new Audio("assets/your-alarm.mp3");
 - Check that logoBase64 is defined in `js/logo.js`
 - Ensure history data exists in Firebase
 
+### Screenshots Not Displaying
+- Verify all image files are in `screenshots/` folder with correct names
+- Ensure filenames match exactly (case-sensitive):
+  - `01-login.png`
+  - `02-dashboard-overview.png`
+  - `03-sensor-cards.png`
+  - `04-gps-map.png`
+  - `05-alert-popup.png`
+  - `06-alerts-page.png`
+  - `07-history-page.png`
+  - `08-users-page.png`
+  - `09-safety-report.png`
+  - `10-mobile-responsive.png`
+- Images should be in PNG format (recommended)
+- File sizes should be < 5MB per image
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -458,7 +424,7 @@ Contributions are welcome! Please follow these steps:
 
 ## 📧 Support
 
-For support, email: [contact information] or open an issue on GitHub.
+For support, email: pavansamarakkodi@gmail.com or open an issue on GitHub.
 
 ## 🙏 Acknowledgments
 
@@ -473,3 +439,4 @@ For support, email: [contact information] or open an issue on GitHub.
 **Last Updated**: July 2026
 **Version**: 1.0.0
 **Status**: Active Development
+**Repository**: [SafetyVest-Web](https://github.com/SPDSamarakkodi/SafetyVest-Web)
