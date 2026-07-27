@@ -1,6 +1,6 @@
 # 🦺 Smart Safety Vest - Monitoring System
 
-A comprehensive real-time monitoring system for safety vests equipped with multiple sensors. This web-based admin dashboard provides real-time alerts, sensor data tracking, worker monitoring, and safety analytics for industrial and hazardous environments.
+A comprehensive real-time monitoring system for safety vests equipped with multiple sensors. This web-based admin dashboard provides real-time alerts, sensor data tracking, worker monitoring, and s[...]
 
 ## 🌟 Features
 
@@ -193,70 +193,70 @@ SafetyVest-Web/
 ### 1. Login Page
 Admin authentication interface with email and password fields.
 
-![Login Page](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/01-login.png)
+![Login Page](screenshots/01-login.png)
 
 ---
 
 ### 2. Dashboard - Real-Time Monitoring
 Main dashboard displaying real-time sensor data and worker status.
 
-![Dashboard Overview](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/02-dashboard-overview.png)
+![Dashboard Overview](screenshots/02-dashboard-overview.png)
 
 ---
 
 ### 3. Sensor Cards Detail
 Live sensor data cards showing temperature, humidity, gas levels, and heart rate.
 
-![Sensor Cards](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/03-sensor-cards.png)
+![Sensor Cards](screenshots/03-sensor-cards.png)
 
 ---
 
 ### 4. Live GPS Map
 Interactive map showing real-time worker location tracking.
 
-![GPS Tracking Map](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/04-gps-map.png)
+![GPS Tracking Map](screenshots/04-gps-map.png)
 
 ---
 
 ### 5. Alert Notification Popup
 Real-time alert notification with critical information and actions.
 
-![Alert Notification](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/05-alert-popup.png)
+![Alert Notification](screenshots/05-alert-popup.png)
 
 ---
 
 ### 6. Alerts Management Page
 Complete alert history with filtering and acknowledgment controls.
 
-![Alerts Management](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/06-alerts-page.png)
+![Alerts Management](screenshots/06-alerts-page.png)
 
 ---
 
 ### 7. Sensor History Page
 Historical sensor data table with search and report generation.
 
-![Sensor History](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/07-history-page.png)
+![Sensor History](screenshots/07-history-page.png)
 
 ---
 
 ### 8. User Management Page
 Worker profile management with role assignment and emergency contacts.
 
-![User Management](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/08-users-page.png)
+![User Management](screenshots/08-users-page.png)
 
 ---
 
 ### 9. PDF Safety Report
 Generated PDF report with comprehensive worker safety analysis.
 
-![Safety Report PDF](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/09-safety-report.png)
+![Safety Report PDF](screenshots/09-safety-report.png)
 
 ---
 
 ### 10. Mobile Responsive View
 Responsive design adapting to mobile and tablet devices.
 
-![Mobile View](https://raw.githubusercontent.com/SPDSamarakkodi/SafetyVest-Web/main/screenshots/10-mobile-responsive.png)
+![Mobile View](screenshots/10-mobile-responsive.png)
 
 ---
 
