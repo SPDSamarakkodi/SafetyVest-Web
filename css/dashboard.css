@@ -185,6 +185,17 @@ canvas{
 
     animation:shake .5s infinite;
 
+    transform:translateX(400px);
+
+    transition:transform .4s ease;
+
+}
+
+/* SHOW POPUP */
+.alert-popup.show{
+
+    transform:translateX(0);
+
 }
 
 @keyframes shake{

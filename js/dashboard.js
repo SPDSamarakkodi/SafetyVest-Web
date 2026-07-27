@@ -79,7 +79,7 @@ function updateSensorStatus(data)
     );
 
 
-    if(data.gas >= 400)
+    if(data.gas >= 950)
     {
 
         gasStatus.innerHTML =
@@ -342,7 +342,7 @@ function updateSafetyStatus(data)
 
     // Gas level
 
-    if(data.gas >= 400)
+    if(data.gas >= 950)
     {
 
         if(status !== "DANGER")
@@ -776,8 +776,14 @@ function showAlert(alert)
 
 
 
-    popup.style.display =
-    "block";
+popup.style.display = "block";
+
+popup.classList.add("show");
+
+alertAudio.play()
+.then(()=>{
+    alertPlaying = true;
+});
 
 
 
@@ -874,7 +880,15 @@ document.getElementById(
 if(popup)
 {
 
-popup.style.display="none";
+popup.classList.remove("show");
+
+setTimeout(() => {
+    popup.classList.remove("show");
+
+setTimeout(() => {
+    popup.style.display = "none";
+},400);
+}, 300);
 
 }
 
@@ -886,59 +900,52 @@ popup.style.display="none";
 // =================================
 
 
+// =================================
+// LIVE NEW ALERT COUNTER
+// =================================
+
 const alertCounter =
-firebase.database()
-.ref("alerts");
+firebase.database().ref("alerts");
 
+alertCounter.on("value", (snapshot) => {
 
+    let count = 0;
 
-alertCounter.on("value", snapshot=>{
+    if (snapshot.exists()) {
 
+        snapshot.forEach((child) => {
 
-console.log(
-"Alert Counter Data:",
-snapshot.val()
-);
+            let alert = child.val();
 
+            if (alert.status === "NEW") {
 
+                count++;
 
-let count = 0;
+            }
 
+        });
 
+    }
 
-if(snapshot.exists())
-{
+    const counter =
+    document.getElementById("alertCount");
 
-count =
-Object.keys(snapshot.val()).length;
+    if (counter) {
 
-}
+        counter.innerText = count;
 
+        // Hide badge when no alerts
+        if (count === 0) {
 
+            counter.style.display = "none";
 
-let counter =
-document.getElementById(
-"alertCount"
-);
+        } else {
 
+            counter.style.display = "inline-block";
 
+        }
 
-if(counter)
-{
-
-counter.innerText=count;
-
-}
-else
-{
-
-console.log(
-"alertCount ID not found"
-);
-
-}
-
-
+    }
 
 });
 
